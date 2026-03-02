@@ -1,303 +1,255 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#c8a96e" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Miss Closet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Miss Closet - Fidelidade</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="apple-touch-icon" href="icon.png" />
+
+  <!-- ✅ PWA: Comportamento de App -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Miss Closet">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Miss Closet">
+  <meta name="theme-color" content="#0ABAB5">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
+    
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0ABAB5 0%, #08a39e 100%);
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      color: #fff;
-      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-    }
-
-    .logo-container {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .logo-container img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 3px solid #c8a96e;
-      object-fit: cover;
-    }
-
-    .logo-container h1 {
-      font-size: 1.6rem;
-      color: #c8a96e;
-      margin-top: 12px;
-      letter-spacing: 1px;
-    }
-
-    .logo-container p {
-      font-size: 0.85rem;
-      color: #aaa;
-      margin-top: 4px;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(200,169,110,0.3);
-      border-radius: 16px;
-      padding: 28px 24px;
-      width: 90%;
-      max-width: 400px;
-    }
-
-    label {
-      display: block;
-      font-size: 0.85rem;
-      color: #c8a96e;
-      margin-bottom: 6px;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px 16px;
-      border-radius: 10px;
-      border: 1px solid rgba(200,169,110,0.4);
-      background: rgba(255,255,255,0.08);
-      color: #fff;
-      font-size: 1rem;
-      outline: none;
-      margin-bottom: 16px;
-    }
-
-    input::placeholder { color: #888; }
-
-    button {
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(135deg, #c8a96e, #a07840);
-      color: #fff;
-      font-size: 1rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      letter-spacing: 0.5px;
-    }
-
-    button:active { opacity: 0.85; }
-
-    #resultado {
-      margin-top: 24px;
-      width: 90%;
-      max-width: 400px;
-    }
-
-    .info-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(200,169,110,0.3);
-      border-radius: 16px;
+      align-items: center;
       padding: 20px;
-      margin-bottom: 16px;
+      padding-top: calc(20px + env(safe-area-inset-top));
+      padding-bottom: calc(20px + env(safe-area-inset-bottom));
     }
-
-    .info-card h3 {
-      color: #c8a96e;
-      margin-bottom: 12px;
-      font-size: 1rem;
+    
+    .container { width: 100%; max-width: 450px; }
+    
+    .logo-container { text-align: center; margin-bottom: 30px; }
+    
+    .logo {
+      width: 150px; height: 150px; border-radius: 50%;
+      background: #FFFFFF; padding: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     }
-
-    .info-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      font-size: 0.88rem;
+    
+    .card {
+      background: #FFFFFF; border-radius: 20px; padding: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     }
-
-    .info-row:last-child { border-bottom: none; }
-    .info-row span:first-child { color: #aaa; }
-    .info-row span:last-child { color: #fff; font-weight: 500; }
-
-    .saldo-destaque {
-      text-align: center;
-      padding: 16px;
-      background: linear-gradient(135deg, rgba(200,169,110,0.2), rgba(160,120,64,0.1));
-      border-radius: 12px;
-      margin-bottom: 16px;
-      border: 1px solid rgba(200,169,110,0.4);
+    
+    h1 { color: #000000; font-size: 24px; font-weight: 600; text-align: center; margin-bottom: 10px; }
+    
+    .subtitle { color: #666; font-size: 14px; text-align: center; margin-bottom: 30px; font-weight: 300; }
+    
+    .input-group { margin-bottom: 20px; }
+    
+    label { display: block; color: #000000; font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+    
+    input {
+      width: 100%; padding: 15px; border: 2px solid #e0e0e0;
+      border-radius: 12px; font-size: 16px; font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
     }
-
-    .saldo-destaque .pontos {
-      font-size: 2.2rem;
-      font-weight: bold;
-      color: #c8a96e;
+    
+    input:focus { outline: none; border-color: #0ABAB5; box-shadow: 0 0 0 4px rgba(10, 186, 181, 0.1); }
+    
+    .btn {
+      width: 100%; padding: 15px; background: #0ABAB5; color: #FFFFFF;
+      border: none; border-radius: 12px; font-size: 16px; font-weight: 600;
+      cursor: pointer; transition: all 0.3s ease; font-family: 'Poppins', sans-serif;
     }
-
-    .saldo-destaque .label {
-      font-size: 0.8rem;
-      color: #aaa;
-      margin-top: 2px;
+    
+    .btn:hover { background: #08a39e; transform: translateY(-2px); }
+    
+    .loading { display: none; text-align: center; margin-top: 20px; }
+    
+    .spinner {
+      border: 3px solid #f3f3f3; border-top: 3px solid #0ABAB5;
+      border-radius: 50%; width: 40px; height: 40px;
+      animation: spin 1s linear infinite; margin: 0 auto;
     }
-
-    .saldo-destaque .valor-reais {
-      font-size: 1rem;
-      color: #7ecf7e;
-      margin-top: 6px;
-      font-weight: 500;
+    
+    .resultado { display: none; margin-top: 10px; }
+    
+    .saldo-card {
+      background: linear-gradient(135deg, #0ABAB5 0%, #08a39e 100%);
+      border-radius: 16px; padding: 25px; color: #FFFFFF;
+      margin-bottom: 20px; box-shadow: 0 10px 30px rgba(10, 186, 181, 0.3);
     }
-
+    
+    .cliente-nome { font-size: 20px; font-weight: 600; margin-bottom: 5px; }
+    .cliente-email { font-size: 13px; opacity: 0.9; margin-bottom: 20px; }
+    
+    .saldo-info {
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(255, 255, 255, 0.15); border-radius: 12px;
+      padding: 15px; backdrop-filter: blur(10px);
+    }
+    
+    .saldo-label { font-size: 13px; opacity: 0.9; margin-bottom: 5px; }
+    .saldo-valor { font-size: 32px; font-weight: 700; }
+    .saldo-reais { font-size: 18px; font-weight: 600; }
+    
+    .transacoes-titulo { color: #000000; font-size: 18px; font-weight: 600; margin-bottom: 15px; }
+    
     .transacao-item {
-      background: rgba(255,255,255,0.04);
-      border-radius: 10px;
-      padding: 10px 14px;
-      margin-bottom: 8px;
-      font-size: 0.82rem;
+      background: #f8f8f8; border-radius: 12px; padding: 15px;
+      margin-bottom: 10px; border-left: 4px solid #0ABAB5;
     }
+    
+    .transacao-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+    .transacao-tipo { font-weight: 600; color: #000000; font-size: 14px; }
+    .transacao-data { font-size: 12px; color: #666; }
+    .transacao-detalhes { display: flex; justify-content: space-between; font-size: 13px; }
+    
+    .pontos-positivo { color: #0ABAB5; font-weight: 600; }
+    .pontos-negativo { color: #ff6b6b; font-weight: 600; }
+    
+    .erro { background: #ffe0e0; color: #d32f2f; padding: 15px; border-radius: 12px; text-align: center; margin-top: 20px; border-left: 4px solid #d32f2f; }
+    
+    .btn-voltar { background: #f0f0f0; color: #000000; margin-top: 15px; }
 
-    .transacao-item .t-data { color: #888; margin-bottom: 4px; }
-    .transacao-item .t-tipo { color: #c8a96e; font-weight: 600; }
-    .transacao-item .t-pontos { color: #7ecf7e; }
-    .transacao-item .t-obs { color: #aaa; font-style: italic; margin-top: 2px; }
-
-    .erro { color: #ff6b6b; text-align: center; padding: 16px; }
-    .loading { text-align: center; color: #c8a96e; padding: 20px; font-size: 0.9rem; }
-
-    .voltar {
-      background: transparent;
-      border: 1px solid rgba(200,169,110,0.4);
-      color: #c8a96e;
-      margin-top: 8px;
-      font-weight: normal;
-    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
-
-  <div class="logo-container">
-    <img src="icon.png" alt="Miss Closet" onerror="this.style.display='none'" />
-    <h1>Miss Closet</h1>
-    <p>Programa de Fidelidade</p>
+  <div class="container">
+    <div class="logo-container">
+      <img src="icon.png" alt="Miss Closet" class="logo" onerror="this.src='https://cdn.abacus.ai/images/b68e3af0-568c-4a36-8944-d27b25468688.png'">
+    </div>
+    
+    <div class="card">
+      <div id="formulario">
+        <h1>Programa de Fidelidade</h1>
+        <p class="subtitle">Consulte seus pontos e transações</p>
+        <div class="input-group">
+          <label for="cpf">CPF</label>
+          <input type="tel" id="cpf" placeholder="000.000.000-00" maxlength="14">
+        </div>
+        <button class="btn" id="btnConsultar" onclick="consultarPontos()">Consultar</button>
+        <div class="loading" id="loading">
+          <div class="spinner"></div>
+          <p style="margin-top: 10px; color: #666;">Buscando dados...</p>
+        </div>
+        <div id="erro"></div>
+      </div>
+      
+      <div class="resultado" id="resultado">
+        <div class="saldo-card">
+          <div class="cliente-nome" id="clienteNome"></div>
+          <div class="cliente-email" id="clienteEmail"></div>
+          <div class="saldo-info">
+            <div>
+              <div class="saldo-label">Pontos disponíveis</div>
+              <div class="saldo-valor" id="saldoPontos">0</div>
+            </div>
+            <div style="text-align: right;">
+              <div class="saldo-label">Equivalente</div>
+              <div class="saldo-reais" id="valorReais">R$ 0,00</div>
+            </div>
+          </div>
+        </div>
+        <div class="transacoes-titulo">Últimas transações</div>
+        <div id="transacoes"></div>
+        <button class="btn btn-voltar" onclick="voltar()">Nova Consulta</button>
+      </div>
+    </div>
   </div>
-
-  <div class="card" id="formCard">
-    <label for="cpf">Digite seu CPF</label>
-    <input
-      type="tel"
-      id="cpf"
-      placeholder="000.000.000-00"
-      maxlength="14"
-      inputmode="numeric"
-    />
-    <button onclick="buscarPontos()">Ver meus pontos</button>
-  </div>
-
-  <div id="resultado"></div>
-
+  
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbxYf_wNx9WpFAO4sAtoX5uidRTsPLBnYJITuwygBR6rec7CPXlfXqsp1RTWUEh5N4V6/exec";
 
-    // Máscara CPF
-    document.getElementById('cpf').addEventListener('input', function () {
-      let v = this.value.replace(/\D/g, '');
+    document.getElementById('cpf').addEventListener('input', function(e) {
+      let v = e.target.value.replace(/\D/g, '');
       if (v.length > 11) v = v.slice(0, 11);
       v = v.replace(/(\d{3})(\d)/, '$1.$2');
       v = v.replace(/(\d{3})(\d)/, '$1.$2');
       v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-      this.value = v;
+      e.target.value = v;
     });
 
-    document.getElementById('cpf').addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') buscarPontos();
-    });
-
-    function buscarPontos() {
-      const cpf = document.getElementById('cpf').value.replace(/\D/g, '');
-      if (cpf.length !== 11) {
-        alert('Por favor, digite um CPF válido com 11 dígitos.');
+    function consultarPontos() {
+      const cpfRaw = document.getElementById('cpf').value.replace(/\D/g, '');
+      if (cpfRaw.length !== 11) {
+        mostrarErro('Por favor, digite um CPF válido.');
         return;
       }
-
-      const resultado = document.getElementById('resultado');
-      resultado.innerHTML = '<div class="loading">🔍 Buscando seus dados...</div>';
-
-      fetch(API_URL + '?cpf=' + cpf)
+      
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('erro').innerHTML = '';
+      document.getElementById('btnConsultar').style.display = 'none';
+      
+      fetch(API_URL + '?cpf=' + cpfRaw)
         .then(r => r.json())
-        .then(data => {
-          if (data.erro) {
-            resultado.innerHTML = `<div class="info-card"><p class="erro">❌ ${data.erro}</p></div>
-              <button class="voltar" onclick="limpar()">← Tentar novamente</button>`;
+        .then(dados => {
+          document.getElementById('loading').style.display = 'none';
+          document.getElementById('btnConsultar').style.display = 'block';
+          
+          if (dados.erro) {
+            mostrarErro(dados.erro);
             return;
           }
-
-          const c = data.cliente;
-          const t = data.transacoes || [];
-
-          let html = `
-            <div class="saldo-destaque">
-              <div class="pontos">${Number(c.saldoPontos || 0).toLocaleString('pt-BR')}</div>
-              <div class="label">pontos acumulados</div>
-              <div class="valor-reais">💰 Equivale a R$ ${Number(c.valorReais || 0).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div>
-            </div>
-
-            <div class="info-card">
-              <h3>👤 Seus dados</h3>
-              <div class="info-row"><span>Nome</span><span>${c.nome || '-'}</span></div>
-              <div class="info-row"><span>CPF</span><span>${c.cpf || '-'}</span></div>
-              <div class="info-row"><span>Telefone</span><span>${c.telefone || '-'}</span></div>
-            </div>`;
-
-          if (t.length > 0) {
-            html += `<div class="info-card"><h3>📋 Últimas movimentações</h3>`;
-            t.forEach(tx => {
-              html += `
+          
+          document.getElementById('clienteNome').textContent = dados.cliente.nome;
+          document.getElementById('clienteEmail').textContent = dados.cliente.email || '';
+          document.getElementById('saldoPontos').textContent = Number(dados.cliente.saldoPontos).toLocaleString('pt-BR');
+          document.getElementById('valorReais').textContent = 'R$ ' + Number(dados.cliente.valorReais).toFixed(2).replace('.', ',');
+          
+          const transacoesDiv = document.getElementById('transacoes');
+          transacoesDiv.innerHTML = '';
+          
+          if (!dados.transacoes || dados.transacoes.length === 0) {
+            transacoesDiv.innerHTML = '<div class="sem-transacoes">Nenhuma transação encontrada</div>';
+          } else {
+            dados.transacoes.forEach(t => {
+              let html = `
                 <div class="transacao-item">
-                  <div class="t-data">${tx.data}</div>
-                  <div class="t-tipo">${tx.tipo}</div>
-                  <div class="t-pontos">
-                    ${tx.pontosGanhos ? '+ ' + tx.pontosGanhos + ' pts' : ''}
-                    ${tx.pontosResgatados ? '- ' + tx.pontosResgatados + ' pts' : ''}
-                    ${tx.saldoFinal !== undefined ? ' · Saldo: ' + tx.saldoFinal : ''}
+                  <div class="transacao-header">
+                    <span class="transacao-tipo">${t.tipo}</span>
+                    <span class="transacao-data">${t.data}</span>
                   </div>
-                  ${tx.observacoes ? `<div class="t-obs">${tx.observacoes}</div>` : ''}
+                  <div class="transacao-detalhes">
+                    <span>${t.valor ? 'R$ ' + Number(t.valor).toFixed(2).replace('.', ',') : ''}</span>
+                    <div style="text-align: right;">
+                      ${t.pontosGanhos > 0 ? `<div class="pontos-positivo">+${t.pontosGanhos} pts</div>` : ''}
+                      ${t.pontosResgatados > 0 ? `<div class="pontos-negativo">-${t.pontosResgatados} pts</div>` : ''}
+                    </div>
+                  </div>
                 </div>`;
+              transacoesDiv.innerHTML += html;
             });
-            html += `</div>`;
           }
-
-          html += `<button class="voltar" onclick="limpar()">← Consultar outro CPF</button>`;
-          resultado.innerHTML = html;
-          document.getElementById('formCard').style.display = 'none';
+          document.getElementById('formulario').style.display = 'none';
+          document.getElementById('resultado').style.display = 'block';
         })
-        .catch(err => {
-          resultado.innerHTML = `
-            <div class="info-card">
-              <p class="erro">❌ Erro de conexão. Verifique sua internet e tente novamente.</p>
-            </div>
-            <button class="voltar" onclick="limpar()">← Tentar novamente</button>`;
+        .catch(() => {
+          document.getElementById('loading').style.display = 'none';
+          document.getElementById('btnConsultar').style.display = 'block';
+          mostrarErro('Erro de conexão. Tente novamente.');
         });
     }
 
-    function limpar() {
-      document.getElementById('resultado').innerHTML = '';
-      document.getElementById('formCard').style.display = 'block';
+    function mostrarErro(msg) { document.getElementById('erro').innerHTML = `<div class="erro">${msg}</div>`; }
+    function voltar() {
+      document.getElementById('formulario').style.display = 'block';
+      document.getElementById('resultado').style.display = 'none';
       document.getElementById('cpf').value = '';
+      document.getElementById('erro').innerHTML = '';
     }
 
-    // Service Worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').catch(() => {});
-    }
+    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js').catch(()=>{}); }
   </script>
 </body>
 </html>
