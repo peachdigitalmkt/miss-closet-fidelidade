@@ -1,90 +1,303 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#c8a96e" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Miss Closet" />
   <title>Miss Closet - Fidelidade</title>
-
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Miss Closet">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="theme-color" content="#0ABAB5">
-
-  <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="icon.png">
-  <link rel="icon" type="image/png" href="icon.png">
-
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon.png" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: linear-gradient(135deg, #0ABAB5, #08a39e);
-      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      font-family: 'Segoe UI', sans-serif;
-      padding-top: env(safe-area-inset-top);
+      justify-content: center;
+      color: #fff;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     }
 
-    img {
-      width: 130px;
-      height: 130px;
+    .logo-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo-container img {
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
-      background: white;
-      padding: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      margin-bottom: 24px;
+      border: 3px solid #c8a96e;
+      object-fit: cover;
     }
 
-    p {
-      color: white;
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 8px;
+    .logo-container h1 {
+      font-size: 1.6rem;
+      color: #c8a96e;
+      margin-top: 12px;
       letter-spacing: 1px;
     }
 
-    small {
-      color: rgba(255,255,255,0.8);
-      font-size: 14px;
-      margin-bottom: 40px;
+    .logo-container p {
+      font-size: 0.85rem;
+      color: #aaa;
+      margin-top: 4px;
     }
 
-    .spinner {
-      border: 3px solid rgba(255,255,255,0.3);
-      border-top: 3px solid white;
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      animation: spin 1s linear infinite;
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(200,169,110,0.3);
+      border-radius: 16px;
+      padding: 28px 24px;
+      width: 90%;
+      max-width: 400px;
     }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: #c8a96e;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(200,169,110,0.4);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      margin-bottom: 16px;
+    }
+
+    input::placeholder { color: #888; }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #c8a96e, #a07840);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+    }
+
+    button:active { opacity: 0.85; }
+
+    #resultado {
+      margin-top: 24px;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .info-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(200,169,110,0.3);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .info-card h3 {
+      color: #c8a96e;
+      margin-bottom: 12px;
+      font-size: 1rem;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      font-size: 0.88rem;
+    }
+
+    .info-row:last-child { border-bottom: none; }
+    .info-row span:first-child { color: #aaa; }
+    .info-row span:last-child { color: #fff; font-weight: 500; }
+
+    .saldo-destaque {
+      text-align: center;
+      padding: 16px;
+      background: linear-gradient(135deg, rgba(200,169,110,0.2), rgba(160,120,64,0.1));
+      border-radius: 12px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(200,169,110,0.4);
+    }
+
+    .saldo-destaque .pontos {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #c8a96e;
+    }
+
+    .saldo-destaque .label {
+      font-size: 0.8rem;
+      color: #aaa;
+      margin-top: 2px;
+    }
+
+    .saldo-destaque .valor-reais {
+      font-size: 1rem;
+      color: #7ecf7e;
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    .transacao-item {
+      background: rgba(255,255,255,0.04);
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      font-size: 0.82rem;
+    }
+
+    .transacao-item .t-data { color: #888; margin-bottom: 4px; }
+    .transacao-item .t-tipo { color: #c8a96e; font-weight: 600; }
+    .transacao-item .t-pontos { color: #7ecf7e; }
+    .transacao-item .t-obs { color: #aaa; font-style: italic; margin-top: 2px; }
+
+    .erro { color: #ff6b6b; text-align: center; padding: 16px; }
+    .loading { text-align: center; color: #c8a96e; padding: 20px; font-size: 0.9rem; }
+
+    .voltar {
+      background: transparent;
+      border: 1px solid rgba(200,169,110,0.4);
+      color: #c8a96e;
+      margin-top: 8px;
+      font-weight: normal;
     }
   </style>
 </head>
 <body>
-  <img src="icon.png" alt="Miss Closet">
-  <p>Miss Closet</p>
-  <small>Carregando...</small>
-  <div class="spinner"></div>
+
+  <div class="logo-container">
+    <img src="icon.png" alt="Miss Closet" onerror="this.style.display='none'" />
+    <h1>Miss Closet</h1>
+    <p>Programa de Fidelidade</p>
+  </div>
+
+  <div class="card" id="formCard">
+    <label for="cpf">Digite seu CPF</label>
+    <input
+      type="tel"
+      id="cpf"
+      placeholder="000.000.000-00"
+      maxlength="14"
+      inputmode="numeric"
+    />
+    <button onclick="buscarPontos()">Ver meus pontos</button>
+  </div>
+
+  <div id="resultado"></div>
 
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').catch(console.error);
+    const API_URL = "https://script.google.com/macros/s/AKfycbxYf_wNx9WpFAO4sAtoX5uidRTsPLBnYJITuwygBR6rec7CPXlfXqsp1RTWUEh5N4V6/exec";
+
+    // Máscara CPF
+    document.getElementById('cpf').addEventListener('input', function () {
+      let v = this.value.replace(/\D/g, '');
+      if (v.length > 11) v = v.slice(0, 11);
+      v = v.replace(/(\d{3})(\d)/, '$1.$2');
+      v = v.replace(/(\d{3})(\d)/, '$1.$2');
+      v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+      this.value = v;
+    });
+
+    document.getElementById('cpf').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') buscarPontos();
+    });
+
+    function buscarPontos() {
+      const cpf = document.getElementById('cpf').value.replace(/\D/g, '');
+      if (cpf.length !== 11) {
+        alert('Por favor, digite um CPF válido com 11 dígitos.');
+        return;
+      }
+
+      const resultado = document.getElementById('resultado');
+      resultado.innerHTML = '<div class="loading">🔍 Buscando seus dados...</div>';
+
+      fetch(API_URL + '?cpf=' + cpf)
+        .then(r => r.json())
+        .then(data => {
+          if (data.erro) {
+            resultado.innerHTML = `<div class="info-card"><p class="erro">❌ ${data.erro}</p></div>
+              <button class="voltar" onclick="limpar()">← Tentar novamente</button>`;
+            return;
+          }
+
+          const c = data.cliente;
+          const t = data.transacoes || [];
+
+          let html = `
+            <div class="saldo-destaque">
+              <div class="pontos">${Number(c.saldoPontos || 0).toLocaleString('pt-BR')}</div>
+              <div class="label">pontos acumulados</div>
+              <div class="valor-reais">💰 Equivale a R$ ${Number(c.valorReais || 0).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</div>
+            </div>
+
+            <div class="info-card">
+              <h3>👤 Seus dados</h3>
+              <div class="info-row"><span>Nome</span><span>${c.nome || '-'}</span></div>
+              <div class="info-row"><span>CPF</span><span>${c.cpf || '-'}</span></div>
+              <div class="info-row"><span>Telefone</span><span>${c.telefone || '-'}</span></div>
+            </div>`;
+
+          if (t.length > 0) {
+            html += `<div class="info-card"><h3>📋 Últimas movimentações</h3>`;
+            t.forEach(tx => {
+              html += `
+                <div class="transacao-item">
+                  <div class="t-data">${tx.data}</div>
+                  <div class="t-tipo">${tx.tipo}</div>
+                  <div class="t-pontos">
+                    ${tx.pontosGanhos ? '+ ' + tx.pontosGanhos + ' pts' : ''}
+                    ${tx.pontosResgatados ? '- ' + tx.pontosResgatados + ' pts' : ''}
+                    ${tx.saldoFinal !== undefined ? ' · Saldo: ' + tx.saldoFinal : ''}
+                  </div>
+                  ${tx.observacoes ? `<div class="t-obs">${tx.observacoes}</div>` : ''}
+                </div>`;
+            });
+            html += `</div>`;
+          }
+
+          html += `<button class="voltar" onclick="limpar()">← Consultar outro CPF</button>`;
+          resultado.innerHTML = html;
+          document.getElementById('formCard').style.display = 'none';
+        })
+        .catch(err => {
+          resultado.innerHTML = `
+            <div class="info-card">
+              <p class="erro">❌ Erro de conexão. Verifique sua internet e tente novamente.</p>
+            </div>
+            <button class="voltar" onclick="limpar()">← Tentar novamente</button>`;
+        });
     }
 
-    // Redireciona para o WebApp após 1.5s (mostra splash antes)
-    setTimeout(function() {
-      window.location.replace(
-        'https://script.google.com/macros/s/AKfycbxYf_wNx9WpFAO4sAtoX5uidRTsPLBnYJITuwygBR6rec7CPXlfXqsp1RTWUEh5N4V6/exec'
-      );
-    }, 1500);
+    function limpar() {
+      document.getElementById('resultado').innerHTML = '';
+      document.getElementById('formCard').style.display = 'block';
+      document.getElementById('cpf').value = '';
+    }
+
+    // Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
   </script>
 </body>
 </html>
