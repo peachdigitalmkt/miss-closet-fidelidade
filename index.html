@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Miss Closet - Fidelidade</title>
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Miss Closet">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#0ABAB5">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="icon" type="image/png" href="icon.png">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0ABAB5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: sans-serif;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100vh;
+      border: none;
+      display: block;
+    }
+
+    #splash {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #0ABAB5, #08a39e);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      transition: opacity 0.5s ease;
+    }
+
+    #splash img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: white;
+      padding: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      margin-bottom: 20px;
+    }
+
+    #splash p {
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    #splash small {
+      color: rgba(255,255,255,0.8);
+      font-size: 13px;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Tela de splash enquanto carrega -->
+  <div id="splash">
+    <img src="icon.png" alt="Miss Closet">
+    <p>Miss Closet</p>
+    <small>Carregando...</small>
+  </div>
+
+  <!-- Seu WebApp do Apps Script carregado dentro do app -->
+  <iframe
+    id="appFrame"
+    src="https://script.google.com/macros/s/AKfycbxYf_wNx9WpFAO4sAtoX5uidRTsPLBnYJITuwygBR6rec7CPXlfXqsp1RTWUEh5N4V6/exec"
+    onload="esconderSplash()"
+    allow="fullscreen">
+  </iframe>
+
+  <script>
+    // Registrar Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(console.error);
+    }
+
+    function esconderSplash() {
+      const splash = document.getElementById('splash');
+      splash.style.opacity = '0';
+      setTimeout(() => splash.style.display = 'none', 500);
+    }
+
+    // Fallback: esconde splash após 5s mesmo se iframe demorar
+    setTimeout(esconderSplash, 5000);
+  </script>
+</body>
+</html>
